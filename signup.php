@@ -1,5 +1,6 @@
 <?php 
 
+
 // Include the database file to establish a database connection
 include('config/database.php');
 
@@ -25,7 +26,7 @@ if(isset($_POST['submit'])){
             $_SESSION['error'] = "Username or Email Already Registered";
         }else{
             // Hash the password for security
-            $hashed_password = md5($password);
+            $hashed_password = password_hash($password , PASSWORD_DEFAULT);
 
             // Check if an image file was uploaded
             if(isset($_FILES['img']) && $_FILES['img']['error'] == 0){
