@@ -4,8 +4,6 @@ include('config/database.php');
 include('config/config.php');
 // Include custom functions, such as 'access_deny()'
 include('include/models/functions.php');
-
-
 // Check and prevent access to this page for logged-in users
 access_deny();
 ?>
@@ -13,6 +11,7 @@ access_deny();
 <?php   
 $current_page = 'member';
 include("include/templates/header.php") ?>
+
     <!-- Navbar top -->
     <div class="navbar-top">
         <div class="title">
@@ -73,7 +72,7 @@ include("include/templates/header.php") ?>
     <!-- Main Content -->
     <div class="main">
         <!-- Display messages/alerts here -->
-        <h2 class="msg"><?php   include("include/models/alerts.php") ?></h2>
+        <h2 class="msg"><?php include('include/models/alerts.php') ?></h2>
 
         <!-- Identity Section -->
         <h2>IDENTITY</h2>
