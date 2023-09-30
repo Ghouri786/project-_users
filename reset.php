@@ -3,9 +3,9 @@
 
 // Include the database file to establish a database connection
 include('config/database.php');
-
-// Include custom functions, such as 'prevent_access()'
-include('include/functions.php');
+include('config/config.php');
+// Include custom functions, such as 'access_deny()'
+include('include/models/functions.php');
 
 // Check and prevent access to this page for logged-in users
 prevent_access();
@@ -50,15 +50,7 @@ if($new_pass === $confirm_pass){
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
-    <link rel="stylesheet" href="style.css">
-</head>
- <body> 
+<?php   include("include/templates/header.php") ?>
     
  
  <!-- partial:index.partial.html --> 
@@ -105,7 +97,7 @@ if($new_pass === $confirm_pass){
 
       <div class="inputBox"> 
 
-    <?php   include('include/alerts.php') ?>
+      <?php   include("include/models/alerts.php") ?>
 
      </div>
 
@@ -117,6 +109,4 @@ if($new_pass === $confirm_pass){
 
   </section> <!-- partial --> 
 
- </body>
-
-</html>
+  <?php   include("include/templates/footer.php") ?>

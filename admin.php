@@ -1,9 +1,9 @@
 <?php
 // Include the database file to establish a database connection
 include('config/database.php');
-
-// Include custom functions, such as 'access_deny();'
-include('include/functions.php');
+include('config/config.php');
+// Include custom functions, such as 'access_deny()'
+include('include/models/functions.php');
 
 // Check and deny access for users who are not logged in
 access_deny();
@@ -14,14 +14,31 @@ admin_access();
 // Handle user deletion when the 'Delete User' button is pressed
 if(isset($_POST['deluser'])){
     extract($_POST);
+
+    $imgsql = "select img from userstb where id= $id";
+    $queryimg = $sql_connection->query($imgsql);
+    if($queryimg->num_rows>0){
+
+        $data = mysqli_fetch_assoc($queryimg);
+        $getimg = $data['img'];
+        if (file_exists($getimg)){
+            unlink($getimg);
+        }
+
+    }
+
+
     // Check if the user's role is 'admin' and prevent deletion
     if($role==='admin'){
         $_SESSION['error'] = "Admin User cannot be Deleted";
     }else{
+
+
         // Construct an SQL query to delete the user with the specified ID
         $del = "delete from userstb where id=" . $id;
         // Execute the SQL query
         $delquery = $sql_connection->query($del);
+
     }
 }
 
@@ -48,19 +65,11 @@ if(isset($_POST['roleselect'])){
 
 <!-- *************HTML******************** -->
 
+<?php 
+$current_page = 'admin';
+include("include/templates/header.php") ?>
+?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin.css">
-
-    <!-- FontAwesome 5 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
     <div class="cen">
         <div class="nav-admin">
             <h2 class="userh">User Management</h2>
@@ -130,9 +139,8 @@ if(isset($_POST['roleselect'])){
     </table>
 
     <div>
-    <?php   include("include/alerts.php") ?>
+    <?php   include("include/models/alerts.php") ?>
     </div>
+    <?php   include("include/templates/footer.php") ?>
 
-    <script src="admin.js"></script>
-</body>
-</html>
+

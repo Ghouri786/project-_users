@@ -1,28 +1,18 @@
 <?php 
-// Include the database file here...
+// Include the database file to establish a database connection
 include('config/database.php');
-
+include('config/config.php');
 // Include custom functions, such as 'access_deny()'
-include('include/functions.php');
+include('include/models/functions.php');
+
 
 // Check and prevent access to this page for logged-in users
 access_deny();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
-
-    <!-- Custom CSS file -->
-    <link rel="stylesheet" href="member-style.css">
-
-    <!-- FontAwesome 5 - External CSS library for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-</head>
-<body>
+<?php   
+$current_page = 'member';
+include("include/templates/header.php") ?>
     <!-- Navbar top -->
     <div class="navbar-top">
         <div class="title">
@@ -83,7 +73,7 @@ access_deny();
     <!-- Main Content -->
     <div class="main">
         <!-- Display messages/alerts here -->
-        <h2 class="msg"><?php include('include/alerts.php') ?></h2>
+        <h2 class="msg"><?php   include("include/models/alerts.php") ?></h2>
 
         <!-- Identity Section -->
         <h2>IDENTITY</h2>
@@ -111,6 +101,11 @@ access_deny();
                             <td>Email</td>
                             <td>:</td>
                             <td><?php echo $_SESSION['user_data']['email'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>:</td>
+                            <td><?php echo $_SESSION['user_data']['gender'] ?></td>
                         </tr>
                         <tr>
                             <td>Address</td>
@@ -157,6 +152,4 @@ access_deny();
     <!-- End of Main Content -->
 
     <!-- JavaScript file -->
-    <script src="script.js"></script>
-</body>
-</html>
+    <?php   include("include/templates/footer.php") ?>

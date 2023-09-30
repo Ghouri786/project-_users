@@ -3,9 +3,10 @@
 
 // Include the database file to establish a database connection
 include('config/database.php');
+include('config/config.php');
+// Include custom functions, such as 'access_deny()'
+include('include/models/functions.php');
 
-// Include custom functions, such as 'prevent_access()'
-include('include/functions.php');
 
 // Check and prevent access to this page for logged-in users
 prevent_access();
@@ -31,7 +32,7 @@ if(isset($_POST['submit'])){
             // Check if an image file was uploaded
             if(isset($_FILES['img']) && $_FILES['img']['error'] == 0){
                 $imgpath = $username . "_" . $_FILES['img']['name'];
-                $uploadDirectory = 'uploads/';
+                $uploadDirectory = 'include/assests/images/uploads/';
                 if (!file_exists($uploadDirectory)) {
                     mkdir($uploadDirectory, 0755, true);
                 }
@@ -62,15 +63,7 @@ if(isset($_POST['submit'])){
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
-    <link rel="stylesheet" href="style.css">
-</head>
- <body> 
+<?php   include("include/templates/header.php") ?>
     
  
  <!-- partial:index.partial.html --> 
@@ -122,7 +115,7 @@ if(isset($_POST['submit'])){
 
       <div class="inputBox"> 
 
-    <?php   include('include/alerts.php') ?>
+      <?php   include("include/models/alerts.php") ?>
 
      </div>
 
@@ -134,6 +127,5 @@ if(isset($_POST['submit'])){
 
   </section> <!-- partial --> 
 
- </body>
-
-</html>
+  
+  <?php   include("include/templates/footer.php") ?>
