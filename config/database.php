@@ -1,8 +1,5 @@
 <?php
 
-// Start a new session for managing user sessions
-session_start();
-
 // Define database connection information
 $servername= 'localhost';
 $username= 'root';
