@@ -9,7 +9,7 @@ access_deny();
 ?>
 
 <?php   
-$current_page = 'member';
+$current_page = "member";
 include("include/templates/header.php") ?>
 
     <!-- Navbar top -->

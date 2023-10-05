@@ -1,10 +1,17 @@
+let clock = document.querySelector('#clock');
+let time= 10
+let timelimit = 0
 
-const admin =document.querySelector('.admin');
-const role =document.querySelector('#user_role').textContent;
 
+function timecal(){
 
-if(role==='admin'){
-    admin.style.display= 'block';
+clock.textContent =time;
+
+if(time <= timelimit){
+    clearInterval(timer);
 }else{
-    admin.style.display= 'none';
+   return time--
 }
+}
+
+let timer=setInterval(timecal,1000)

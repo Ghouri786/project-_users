@@ -11,6 +11,7 @@ include('include/models/functions.php');
 // Check and prevent access to this page for logged-in users
 prevent_access();
 
+deleteexpiredotp($sql_connection);
 // Insert data from the 'sign-up form' into the database when the submit button is clicked
 if(isset($_POST['submit'])){
     // Extract form fields into variables

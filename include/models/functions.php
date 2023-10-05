@@ -27,4 +27,18 @@ function admin_access(){
         exit; // Exit to stop further script execution
     }
 }
+
+
+
+function deleteexpiredotp($sql_connection){
+// OTP delete from database funtionality when otp expired
+$sqlt = "SELECT * FROM reset_pass where NOW() > expired_at";
+$queryt = $sql_connection->query($sqlt);
+while($result =mysqli_fetch_assoc($queryt)){
+    $user_id = $result['user_id'];
+    $sql3 = "delete from reset_pass where user_id= $user_id";
+    $query3 =$sql_connection->query($sql3);
+}
+
+}
 ?>

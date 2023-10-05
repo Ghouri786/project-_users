@@ -42,7 +42,9 @@ $dbtable_query = $sql_connection->query($dbtable);
 $dbtable2 = "Create table if not exists reset_pass (
     id int auto_increment primary key,
     user_id int (11),
-    OTP varchar(255) NOT NULL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    expired_at TIMESTAMP, 
+    OTP varchar(255)
 
 )";
 

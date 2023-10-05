@@ -10,17 +10,23 @@ include('include/models/functions.php');
 // Check and prevent access to this page for logged-in users
 prevent_access();
 
+deleteexpiredotp($sql_connection);
+
 if(isset($_POST['reset_pass'])){
-
     extract($_POST);
-
-    $sql1 = "select * from reset_pass where OTP = $otp";
+    $sql1 = "select * from reset_pass";
     $query2 =$sql_connection->query($sql1);
+    if(!empty($otp) && !empty($new_pass) && !empty($confirm_pass)){
+    $result = mysqli_fetch_assoc($query2);
+$createotp =$result['created_at'];
+$expired =$result['expired_at'];
+$created_at = date('h:i:sa' , strtotime($createotp));
+$expired_at = date('h:i:sa' , strtotime($createotp));
+$currenttime = date('h:i:sa');
+if($currenttime > $expired_at){
 if($query2->num_rows>0){
 
-$result = mysqli_fetch_assoc($query2);
 $user_id =$result['user_id'];
-
 if($new_pass === $confirm_pass){
 
     $hashed = password_hash($new_pass , PASSWORD_DEFAULT);
@@ -42,8 +48,16 @@ if($new_pass === $confirm_pass){
 }else{
     $_SESSION['error'] = "OTP not Valid";
 }
-
+}else{
+    $_SESSION['error'] = "OTP Expired";
 }
+
+    }else{
+        $_SESSION['error'] = "ALL Fields Required";
+}
+    }
+
+
 
 
 
@@ -62,6 +76,13 @@ if($new_pass === $confirm_pass){
     <div class="content"> 
 
      <h2>Sign Up</h2> 
+
+
+     <div class="inputBox"> 
+    <h3 id="clock"></h3>
+     </div>
+
+
 
     <form action="reset.php" class="form" method="post" >
 
@@ -107,6 +128,6 @@ if($new_pass === $confirm_pass){
 
    </div> 
 
-  </section> <!-- partial --> 
-
+  </section>
+  
   <?php   include("include/templates/footer.php") ?>

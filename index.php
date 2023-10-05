@@ -9,6 +9,7 @@ include('include/models/functions.php');
 // Check and prevent access to this page for logged-in users
 prevent_access();
 
+deleteexpiredotp($sql_connection);
 // Check if the 'login' form field has been submitted
 if(isset($_POST['login'])){
     // Extract form fields into variables
